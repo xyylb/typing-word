@@ -19,6 +19,11 @@ import {DictType, ShortcutKey} from "@/types.ts";
 import ChapterName from "@/components/toolbar/ChapterName.vue";
 import {emitter, EventKey} from "@/utils/eventBus.ts";
 import BaseIcon from "@/components/BaseIcon.vue";
+import PracticeSelectionWord from "@/components/toolbar/PracticeSelectionWord.vue";
+import WordSelectionPractice from "@/components/toolbar/WordSelectionPractice.vue";
+import Dictation from "@/components/toolbar/Dictation.vue";
+import ChineseSelectionWord from "@/components/toolbar/ChineseSelectionWord.vue";
+import WordSelectionChinese from "@/components/toolbar/WordSelectionChinese.vue";
 
 const {toggleTheme} = useTheme()
 const store = useBaseStore()
@@ -84,6 +89,11 @@ watch(() => store.load, n => {
                     @click="toggle"/>
             </IconWrapper>
           </Tooltip>
+
+          <Dictation/>
+          <ChineseSelectionWord/>
+          <WordSelectionChinese/>
+
 
           <Tooltip
               :title="`开关默写模式(快捷键：${settingStore.shortcutKeyMap[ShortcutKey.ToggleDictation]})`"

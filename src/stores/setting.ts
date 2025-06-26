@@ -43,6 +43,7 @@ export interface SettingState {
   shortcutKeyMap: Record<string, string>,
   first: boolean
   load: boolean
+  currentMode: String
 }
 
 export const DefaultSettingState = (): SettingState => ({
@@ -84,7 +85,8 @@ export const DefaultSettingState = (): SettingState => ({
   chapterWordNumber: DefaultChapterWordNumber,
   shortcutKeyMap: cloneDeep(DefaultShortcutKeyMap),
   first: true,
-  load: false
+  load: false,
+  currentMode: 'dictation'
 })
 export const DefaultChapterWordNumber = 30
 export const useSettingStore = defineStore('setting', {

@@ -15,9 +15,11 @@ declare module 'vue' {
     BaseIcon: typeof import('./src/components/BaseIcon.vue')['default']
     BaseList: typeof import('./src/components/list/BaseList.vue')['default']
     ChapterName: typeof import('./src/components/toolbar/ChapterName.vue')['default']
+    ChineseSelectionWord: typeof import('./src/components/toolbar/ChineseSelectionWord.vue')['default']
     Close: typeof import('./src/components/icon/Close.vue')['default']
     CollectNotice: typeof import('./src/components/CollectNotice.vue')['default']
     Dialog: typeof import('./src/components/dialog/Dialog.vue')['default']
+    Dictation: typeof import('./src/components/toolbar/Dictation.vue')['default']
     DictDiglog: typeof import('./src/components/dialog/DictDiglog.vue')['default']
     DictGroup: typeof import('./src/components/list/DictGroup.vue')['default']
     DictItem: typeof import('./src/components/list/DictItem.vue')['default']
@@ -50,6 +52,7 @@ declare module 'vue' {
     Logo: typeof import('./src/components/Logo.vue')['default']
     MiniDialog: typeof import('./src/components/dialog/MiniDialog.vue')['default']
     PopConfirm: typeof import('./src/components/PopConfirm.vue')['default']
+    PracticeSelectionWord: typeof import('./src/components/toolbar/PracticeSelectionWord.vue')['default']
     RepeatSetting: typeof import('./src/components/toolbar/RepeatSetting.vue')['default']
     RightTopBar: typeof import('./src/components/RightTopBar.vue')['default']
     Ring: typeof import('./src/components/Ring.vue')['default']
@@ -65,6 +68,8 @@ declare module 'vue' {
     VolumeSetting: typeof import('./src/components/toolbar/VolumeSetting.vue')['default']
     WordList: typeof import('./src/components/list/WordList.vue')['default']
     WordListDialog: typeof import('./src/components/dialog/WordListDialog.vue')['default']
+    WordSelectionChinese: typeof import('./src/components/toolbar/WordSelectionChinese.vue')['default']
+    WordSelectionPractice: typeof import('./src/components/toolbar/WordSelectionPractice.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

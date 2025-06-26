@@ -19,6 +19,8 @@ import {useStartKeyboardEventListener} from "@/hooks/event.ts";
 import useTheme from "@/hooks/theme.ts";
 import RightTopBar from "@/components/RightTopBar.vue";
 import Logo from "@/components/Logo.vue";
+import ChineseWord from './chinese-word/index.vue'
+import WordChinese from './word-chinese/index.vue'
 
 const practiceStore = usePracticeStore()
 const store = useBaseStore()
@@ -145,8 +147,13 @@ useStartKeyboardEventListener()
     <Logo/>
     <Toolbar/>
     <!--    <BaseButton @click="test">test</BaseButton>-->
-    <PracticeArticle ref="practiceRef" v-if="store.isArticle"/>
-    <PracticeWord ref="practiceRef" v-else/>
+    <template v-if="settingStore.currentMode=='dictation'">
+      <PracticeArticle ref="practiceRef" v-if="store.isArticle"/>
+      <PracticeWord ref="practiceRef" v-else/>
+    </template>
+    <!--这里-->
+      <ChineseWord ></ChineseWord>
+    <WordChinese></WordChinese>
     <Footer/>
   </div>
   <RightTopBar/>
