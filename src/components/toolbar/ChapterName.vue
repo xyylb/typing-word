@@ -67,6 +67,9 @@ watch(() => show, n => {
 <style scoped lang="scss">
 .ChapterName {
   position: relative;
+  @media (max-width: 600px) {
+    width: 100px;
+  }
 }
 
 .chapter-list {

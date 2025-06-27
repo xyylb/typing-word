@@ -85,6 +85,10 @@ onUnmounted(() => {
   transition: all var(--anim-time);
   position: relative;
   margin-top: 15rem;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+
 
   &.hide {
     margin-bottom: -90rem;

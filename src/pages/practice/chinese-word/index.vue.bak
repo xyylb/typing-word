@@ -1,0 +1,131 @@
+<template>
+  <div style="width: 500px;">
+    <h2 style="font-size: 15px;">根据中文选单词({{(currentIndex+1)}}/{{(currentUnitWords?.length)}})</h2>
+    <p style="font-size: 26px;">{{ currentWord.trans.join('；') }}</p>
+    <ul v-if="!isAnswerChecked">
+      <li v-for="(option, index) in options" :key="index" @click="checkAnswer(option)" style="font-size: 18px; border-top: 1px solid #c4c3c3; border-bottom: 1px solid #c4c3c3; padding: 10px 0; margin: 5px 0;">
+        {{ option.name }}
+      </li>
+    </ul>
+    <p v-if="resultMessage" style="font-size: 18px;">{{ resultMessage }}</p>
+    <button @click="nextWord" style="font-size: 18px;" v-if="(currentIndex+1)<currentUnitWords?.length">下一个</button>
+    <button @click="nextChapter" style="font-size: 18px;" v-if="(currentIndex+1)>=currentUnitWords?.length">下一章</button>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, watchEffect,watch } from 'vue';
+import { useBaseStore } from '@/stores/base.ts';
+import { Word } from '@/types.ts';
+import { cloneDeep, shuffle } from 'lodash-es';
+import {usePracticeStore} from "@/stores/practice.ts";
+
+const store = useBaseStore();
+const currentIndex = ref(0);
+const currentWord = ref<Word>({ name: '', usphone: '', ukphone: '', trans: [] });
+const options = ref<Word[]>([]);
+const resultMessage = ref('');
+const showNextButton = ref(false);
+const wrongWords = ref<Word[]>([]);
+const currentUnitWords = ref<Word[]>([]);
+const isAnswerChecked = ref(false);
+const practiceStore = usePracticeStore()
+
+// 初始化当前单元的单词并打乱顺序
+watch(()=>[store.currentDict.chapterWords[store.currentDict.chapterIndex],store.currentDict.chapterIndex],() => {
+  const currentUnit = store.currentDict.chapterWords[store.currentDict.chapterIndex];
+  const arr = shuffle(cloneDeep(currentUnit));
+  console.log('这都是什么时候执行的')
+  currentUnitWords.value = arr.sort(() => Math.random() - 0.5);;
+  startPractice();
+  currentIndex.value = 0;
+
+
+  //正确率重置
+  practiceStore.wrongWords = []
+  practiceStore.repeatNumber = 0
+  practiceStore.startDate = Date.now()
+  practiceStore.correctRate = -1
+  practiceStore.inputWordNumber = 0
+  practiceStore.wrongWordNumber = 0
+},);
+
+
+// 开始练习
+function startPractice() {
+  if (currentIndex.value >= currentUnitWords.value.length) {
+    if (wrongWords.value.length > 0) {
+      currentUnitWords.value = shuffle(cloneDeep(wrongWords.value));
+      currentIndex.value = 0;
+      wrongWords.value = [];
+      startPractice();
+    } else {
+      resultMessage.value = '本单元练习完成！';
+      return;
+    }
+  }
+  currentWord.value = currentUnitWords.value[currentIndex.value];
+  generateOptions();
+  resultMessage.value = '';
+  showNextButton.value = false;
+  isAnswerChecked.value = false;
+}
+
+// 生成备选项
+function generateOptions() {
+  //改成store.currentDict.chapterWords的所有单词
+  const allDictWords = store.currentDict.chapterWords.flat();
+  const allOptions = cloneDeep(allDictWords);
+  const correctOption = currentWord.value;
+  const incorrectOptions = allOptions.filter(option => option.name !== correctOption.name);
+  const randomOptions = [];
+  while (randomOptions.length < 3) {
+    const randomIndex = Math.floor(Math.random() * incorrectOptions.length);
+    const randomOption = incorrectOptions[randomIndex];
+    if (!randomOptions.some(option => option.name === randomOption.name)) {
+      randomOptions.push(randomOption);
+    }
+  }
+  randomOptions.push(correctOption);
+  options.value = shuffle(randomOptions);
+}
+
+// 检查答案
+function checkAnswer(option: Word) {
+  isAnswerChecked.value = true;
+  if (option.name === currentWord.value.name) {
+    resultMessage.value = '回答正确！';
+    setTimeout(() => {
+      nextWord();
+    }, 100);
+  } else {
+    resultMessage.value = `回答错误，正确答案是：${currentWord.value.name}`;
+    if (!wrongWords.value.some(word => word.name === currentWord.value.name)) {
+      wrongWords.value.push(currentWord.value);
+    }
+    showNextButton.value = true;
+  }
+}
+
+// 下一个单词
+function nextWord() {
+  currentIndex.value++;
+  startPractice();
+}
+
+function nextChapter(){
+  store.currentDict.chapterIndex++;
+}
+</script>
+
+<style scoped>
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+</style>

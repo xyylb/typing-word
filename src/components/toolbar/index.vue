@@ -205,12 +205,18 @@ header {
   border: 1px solid var(--color-item-border);
   transition: all var(--anim-time);
   box-shadow: var(--shadow);
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 
   .content {
     min-height: var(--toolbar-height);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media (max-width: 600px) {
+      width: 100%;
+    }
 
     .dict-name {
       display: flex;
@@ -240,6 +246,7 @@ header {
         display: flex;
         align-items: center;
         transition: all .3s;
+        flex-wrap: wrap;
       }
 
       .with-bg {

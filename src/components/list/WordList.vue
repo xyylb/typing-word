@@ -5,6 +5,7 @@ import {Word} from "@/types.ts";
 import VolumeIcon from "@/components/icon/VolumeIcon.vue";
 import BaseList from "@/components/list/BaseList.vue";
 import {usePlayWordAudio} from "@/hooks/sound.ts";
+import {useSettingStore} from "@/stores/setting.ts";
 
 const props = withDefaults(defineProps<{
   list: Word[],
@@ -35,6 +36,8 @@ const playWordAudio = usePlayWordAudio()
 
 defineExpose({scrollToBottom, scrollToItem})
 
+const settingStore = useSettingStore()
+
 </script>
 
 <template>
@@ -48,12 +51,12 @@ defineExpose({scrollToBottom, scrollToItem})
     </template>
     <template v-slot="{ item, index }">
       <div class="item-title">
-        <span class="word" :class="!showWord && 'text-shadow'">{{ item.name }}</span>
+        <span class="word" :class="!showWord && settingStore.currentMode!=='wordSelectionChinese' && 'text-shadow'">{{ item.name }}</span>
         <span class="phonetic">{{ item.usphone }}</span>
         <VolumeIcon class="volume" @click="playWordAudio(item.name)"></VolumeIcon>
       </div>
       <div class="item-sub-title" v-if="item.trans.length && showTranslate">
-        <div v-for="tran in item.trans">{{ tran }}</div>
+        <div v-for="tran in item.trans" :class="!showWord && settingStore.currentMode==='wordSelectionChinese' && 'text-shadow'">{{ tran }}</div>
       </div>
     </template>
     <template v-slot:suffix="{ item, index }">

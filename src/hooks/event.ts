@@ -51,6 +51,11 @@ export function useStartKeyboardEventListener() {
     const settingStore = useSettingStore()
 
     useEventListener('keydown', (e: KeyboardEvent) => {
+        const isMobile  = window.innerWidth<600
+        if(isMobile){
+            console.log('现在是移动端，不要处理')
+            return ;
+        }
         // console.log('e',e.keyCode,e.code)
         if (!runtimeStore.disableEventListener) {
             e.preventDefault()

@@ -52,16 +52,29 @@ function next() {
 }
 
 onMounted(() => {
-  getCurrentPractice()
   emitter.on(EventKey.changeDict, getCurrentPractice)
   emitter.on(EventKey.next, next)
   emitter.on(ShortcutKey.NextChapter, next)
+
+  updateScreenWidth();
+  // 移除事件监听防止内存泄漏
+  window.addEventListener('resize', updateScreenWidth)
+  getCurrentPractice()
 })
+
+// 窗口宽度变化
+const updateScreenWidth = () => {
+  const isMobile  = window.innerWidth<600
+}
+
 
 onUnmounted(() => {
   emitter.off(EventKey.changeDict, getCurrentPractice)
   emitter.off(EventKey.next, next)
   emitter.off(ShortcutKey.NextChapter, next)
+
+  // 移除事件监听防止内存泄漏
+  window.removeEventListener('resize', updateScreenWidth)
 })
 
 defineExpose({getCurrentPractice})
@@ -81,5 +94,8 @@ defineExpose({getCurrentPractice})
 .practice {
   //height: 100%;
   flex: 1;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 }
 </style>

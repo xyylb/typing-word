@@ -52,7 +52,6 @@ declare module 'vue' {
     Logo: typeof import('./src/components/Logo.vue')['default']
     MiniDialog: typeof import('./src/components/dialog/MiniDialog.vue')['default']
     PopConfirm: typeof import('./src/components/PopConfirm.vue')['default']
-    PracticeSelectionWord: typeof import('./src/components/toolbar/PracticeSelectionWord.vue')['default']
     RepeatSetting: typeof import('./src/components/toolbar/RepeatSetting.vue')['default']
     RightTopBar: typeof import('./src/components/RightTopBar.vue')['default']
     Ring: typeof import('./src/components/Ring.vue')['default']
@@ -69,7 +68,6 @@ declare module 'vue' {
     WordList: typeof import('./src/components/list/WordList.vue')['default']
     WordListDialog: typeof import('./src/components/dialog/WordListDialog.vue')['default']
     WordSelectionChinese: typeof import('./src/components/toolbar/WordSelectionChinese.vue')['default']
-    WordSelectionPractice: typeof import('./src/components/toolbar/WordSelectionPractice.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

@@ -152,8 +152,8 @@ useStartKeyboardEventListener()
       <PracticeWord ref="practiceRef" v-else/>
     </template>
     <!--这里-->
-      <ChineseWord ></ChineseWord>
-    <WordChinese></WordChinese>
+      <ChineseWord ref="practiceRef" v-if="settingStore.currentMode=='chineseSelectionWord'"></ChineseWord>
+    <WordChinese ref="practiceRef" v-if="settingStore.currentMode=='wordSelectionChinese'"></WordChinese>
     <Footer/>
   </div>
   <RightTopBar/>
@@ -173,6 +173,9 @@ useStartKeyboardEventListener()
   //padding-right: var(--practice-wrapper-padding-right);
   transform: translateX(var(--practice-wrapper-translateX));
 
+  @media (max-width: 600px) {
+    transform: none;
+  }
 
 }
 

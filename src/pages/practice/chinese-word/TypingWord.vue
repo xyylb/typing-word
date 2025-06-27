@@ -11,7 +11,7 @@ import { useOnKeyboardEventListener, useWindowClick } from "@/hooks/event.ts";
 import { Icon } from "@iconify/vue";
 import Tooltip from "@/components/Tooltip.vue";
 import Options from "@/pages/practice/Options.vue";
-import Typing from "@/pages/practice/practice-word/Typing.vue";
+import Typing from "./Typing.vue";
 import Panel from "@/pages/practice/Panel.vue";
 import IconWrapper from "@/components/IconWrapper.vue";
 import { useRuntimeStore } from "@/stores/runtime.ts";
@@ -310,13 +310,13 @@ const handleShowFrame=(domain:any)=>{
         @next="next"
     />
     <div class="options-wrapper">
-      <Options
+<!--      <Options
           :is-simple="isWordSimple(word)"
           @toggle-simple="toggleWordSimpleWrapper"
           :is-collect="isWordCollect(word)"
           @toggle-collect="toggleWordCollect(word)"
           @skip="next(false)"
-      />
+      />-->
     </div>
 
     <Teleport to="body">
@@ -406,12 +406,12 @@ const handleShowFrame=(domain:any)=>{
     </Teleport>
 
 
-    <div><a :href="'https://fanyi.baidu.com/mtpe-individual/multimodal?query='+word.name+'&lang=en2zh'" target="_blank">百度</a></div>
   </div>
 </template>
 
 <style scoped lang="scss">
 @import "@/assets/css/variable";
+
 
 .practice-word {
   height: 100%;
@@ -472,9 +472,6 @@ const handleShowFrame=(domain:any)=>{
     //bottom: 0;
     margin-left: -30rem;
     margin-top: 120rem;
-    @media (max-width: 600px) {
-      display: none;
-    }
   }
 }
 
