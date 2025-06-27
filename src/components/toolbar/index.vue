@@ -121,10 +121,10 @@ watch(() => store.load, n => {
               title="添加"
               icon="ic:outline-cloud-upload"/>
 
-          <BaseIcon
+<!--          <BaseIcon
               @click="showFeedbackModal = true"
               title="反馈"
-              icon="ph:bug-beetle"/>
+              icon="ph:bug-beetle"/>-->
         </div>
 
         <div class="with-bg anim">

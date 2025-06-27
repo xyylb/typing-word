@@ -68,7 +68,7 @@ watch(() => show, n => {
 .ChapterName {
   position: relative;
   @media (max-width: 600px) {
-    width: 100px;
+    width: 60px;
   }
 }
 

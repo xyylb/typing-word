@@ -87,6 +87,8 @@ onUnmounted(() => {
   margin-top: 15rem;
   @media (max-width: 600px) {
     width: 100%;
+    position: absolute;
+    bottom: 0;
   }
 
 
