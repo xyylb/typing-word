@@ -66,6 +66,9 @@ watch(()=>wordData.words,(value, oldValue, onCleanup)=>{
     sort(shuffle(value))
   }
 })
+watch(()=>store.currentDict.chapterIndex,()=>{
+  sort(shuffle(wordData.words))
+})
 
 onUnmounted(() => {
   console.log('onUnmounted')

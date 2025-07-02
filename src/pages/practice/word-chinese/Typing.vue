@@ -249,6 +249,8 @@ defineExpose({del, showWord, hideWord, play})
         <!--          </Tooltip>-->
         <!--        </div>-->
       </div>
+      <div class="phonetic2" v-if="settingStore.wordSoundType === 'us' && word.usphone">[{{ word.usphone }}]</div>
+      <div class="phonetic2" v-if="settingStore.wordSoundType === 'uk' && word.ukphone">[{{ word.ukphone }}]</div>
     </div>
     <div class="body-container">
       <ul v-if="!isAnswerChecked">
@@ -283,6 +285,11 @@ defineExpose({del, showWord, hideWord, play})
 
   .phonetic {
     margin-top: 5rem;
+    font-family: var(--word-font-family);
+  }
+
+  .phonetic2 {
+    font-size: 15rem;
     font-family: var(--word-font-family);
   }
 

@@ -63,6 +63,10 @@ watch(()=>wordData.words,(value, oldValue, onCleanup)=>{
     sort(shuffle(value))
   }
 })
+//章节发生变化时候，随机排序
+watch(()=>store.currentDict.chapterIndex,()=>{
+  sort(shuffle(wordData.words))
+})
 
 onUnmounted(() => {
   emitter.off(EventKey.changeDict, getCurrentPractice)

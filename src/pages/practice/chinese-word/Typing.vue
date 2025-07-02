@@ -49,7 +49,7 @@ watch(() => props.word, () => {
   wordRepeatCount = 0
   waitNext = inputLock = false
   if (settingStore.wordSound) {
-    volumeIconRef?.play(400, true)
+    /*volumeIconRef?.play(400, true)*/
   }
   generateOptions()
 })
@@ -74,7 +74,7 @@ function repeat() {
     inputLock = false
 
     if (settingStore.wordSound) {
-      volumeIconRef?.play()
+      /*volumeIconRef?.play()*/
     }
   }, settingStore.waitTimeForChangeWord)
 }
@@ -196,6 +196,7 @@ function checkAnswer(option: Word) {
   isAnswerChecked.value = true;
   if (option.name === props.word.name) {
     /*resultMessage.value = '回答正确！';*/
+    play()
     setTimeout(() => {
       //下一个
       console.log('下一个执行了吗？')
@@ -242,13 +243,17 @@ defineExpose({del, showWord, hideWord, play})
     </div>
     <div class="body-container">
       <ul v-if="!isAnswerChecked">
-        <li v-for="(option, index) in options" :key="index" style="font-size: 18px; ">
+        <li v-for="(option, index) in options" :key="index" style="font-size: 18px; " >
           <div style="display: flex;">
-            <div style="flex: 1;border-bottom: 1px solid #c4c3c3; padding: 10px 0; margin: 5px 20px;cursor: pointer"  @click="checkAnswer(option)"> {{ option.name }}</div>
-            <VolumeIcon :simple="true" :cb="() => playWordAudio(option.name)"/></div>
+            <div style="flex: 1;border-bottom: 1px solid #c4c3c3; padding: 10px 0; margin: 5px 20px;cursor: pointer"  @click="checkAnswer(option)">
+
+              {{ option.name }}
+            </div>
+            <VolumeIcon :simple="true" :cb="() => playWordAudio(option.name)" class="volumeIcon"/></div>
         </li>
       </ul>
     </div>
+    <VolumeIcon ref="volumeIconRef" :simple="true" :cb="() => playWordAudio(word.name)" v-show="resultMessage"/>
     <p v-if="resultMessage" style="font-size: 18px;">{{ resultMessage }}</p>
     <button v-if="resultMessage" @click="nextWord" style="font-size: 18px;">下一个</button>
     <!--   <button @click="nextChapter" style="font-size: 18px;" v-if="(currentIndex+1)>=currentUnitWords?.length">下一章</button>-->
@@ -331,6 +336,14 @@ defineExpose({del, showWord, hideWord, play})
     width: 500px;
     @media (max-width: 600px) {
       width: 100%;
+    }
+    .volumeIcon{
+      margin:0 15px;height: 46px;width: 46px;border:1px solid #fff;
+      border-radius: 50%;
+    }
+    .volumeIcon:focus {
+      outline: none; /* 去掉默认聚焦轮廓 */
+      box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.3); /* 自定义圆形聚焦阴影 */
     }
   }
 }
